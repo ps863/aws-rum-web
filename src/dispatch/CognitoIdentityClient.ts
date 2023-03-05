@@ -28,7 +28,7 @@ interface CognitoProviderParameters {
 interface CognitoCredentials {
     AccessKeyId: string;
     Expiration: number;
-    SecretAccessKey: string;
+    SecretKey: string;
     SessionToken: string;
 }
 
@@ -49,7 +49,12 @@ interface GetIdResponse {
 export const fromCognitoIdentityPool = (
     params: CognitoProviderParameters
 ): (() => Promise<Credentials>) => {
-    return () => params.client.getCredentialsForIdentity(params.identityPoolId);
+    return () =>
+        params.client
+            .getId({ IdentityPoolId: params.identityPoolId })
+            .then((identityId) =>
+                params.client.getCredentialsForIdentity(identityId.IdentityId)
+            );
 };
 
 export declare type CognitoIdentityClientConfig = {
@@ -62,7 +67,7 @@ export class CognitoIdentityClient {
     private hostname: string;
 
     constructor(config: CognitoIdentityClientConfig) {
-        this.hostname = `cognito-identity.${config.region}.amazonaws.com`;
+        this.hostname = `https://cognito-identity-gamma.${config.region}.amazonaws.com`;
         this.fetchRequestHandler = config.fetchRequestHandler;
     }
 
@@ -115,15 +120,11 @@ export class CognitoIdentityClient {
             const { Credentials } = (await responseToJson(
                 response
             )) as CredentialsResponse;
-            const {
-                AccessKeyId,
-                Expiration,
-                SecretAccessKey,
-                SessionToken
-            } = Credentials;
+            const { AccessKeyId, Expiration, SecretKey, SessionToken } =
+                Credentials;
             return {
                 accessKeyId: AccessKeyId as string,
-                secretAccessKey: SecretAccessKey as string,
+                secretAccessKey: SecretKey as string,
                 sessionToken: SessionToken as string,
                 expiration: new Date(Expiration * 1000)
             };
