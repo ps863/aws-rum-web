@@ -2,6 +2,63 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.13.5 (2023-03-17)
+
+
+### Features
+
+* Add config option to omit request signature. ([#273](https://github.com/aws-observability/aws-rum-web/issues/273)) ([49ae45c](https://github.com/aws-observability/aws-rum-web/commit/49ae45cc921340cbcf2fd66f8b5c1eaf0238370a))
+* Add recordEvent API and expose Plugin to enable recording of custom events ([#188](https://github.com/aws-observability/aws-rum-web/issues/188)) ([3e16093](https://github.com/aws-observability/aws-rum-web/commit/3e16093ec11db86eb404888b83e0e947606a0976))
+* Add registerDomEvents command ([#111](https://github.com/aws-observability/aws-rum-web/issues/111)) ([2a67daa](https://github.com/aws-observability/aws-rum-web/commit/2a67daafd889a6eda6186c38d3d930eba816d13c))
+* Add URL to http events and trace segments. ([#190](https://github.com/aws-observability/aws-rum-web/issues/190)) ([fb1f758](https://github.com/aws-observability/aws-rum-web/commit/fb1f7586c1d9f983de3d2c515ce9a0e62c02e632))
+* Add useBeacon config for visibilitychange dispatch behavior. ([#194](https://github.com/aws-observability/aws-rum-web/issues/194)) ([00ef55f](https://github.com/aws-observability/aws-rum-web/commit/00ef55fe9af8c1a23d1689035a413341de6bd80e))
+* Capture SPA route change timing ([#134](https://github.com/aws-observability/aws-rum-web/issues/134)) ([91e1303](https://github.com/aws-observability/aws-rum-web/commit/91e13034ab1682ec621970bd9b76e693ea928da3))
+* Create a session ID when cookies are disabled ([#314](https://github.com/aws-observability/aws-rum-web/issues/314)) ([6943587](https://github.com/aws-observability/aws-rum-web/commit/6943587259b8d7623742656199dc26b26b5bcd5d))
+* Custom attributes ([#254](https://github.com/aws-observability/aws-rum-web/issues/254)) ([3712926](https://github.com/aws-observability/aws-rum-web/commit/371292638adcd788fd81f05baff66812fac2e9b2))
+* Dynamically update DOM event listeners ([#112](https://github.com/aws-observability/aws-rum-web/issues/112)) ([d4bfbb5](https://github.com/aws-observability/aws-rum-web/commit/d4bfbb5733e749bad5e6a2590f3d3fb2f43032c5))
+* identify DOM events using CSS locator ([#87](https://github.com/aws-observability/aws-rum-web/issues/87)) ([1c911e0](https://github.com/aws-observability/aws-rum-web/commit/1c911e0bf14841567c8bffe8367fe4b5f4977c9f))
+* Ignore errors ([#164](https://github.com/aws-observability/aws-rum-web/issues/164)) ([75dee61](https://github.com/aws-observability/aws-rum-web/commit/75dee618b95f2454f95ab50a43839feba98993b4))
+* Increase stack trace length ([#313](https://github.com/aws-observability/aws-rum-web/issues/313)) ([28e34c5](https://github.com/aws-observability/aws-rum-web/commit/28e34c5ad541e1fc1e0b12c1a937289df5911791))
+* Page tagging ([#114](https://github.com/aws-observability/aws-rum-web/issues/114)) ([cb9cb13](https://github.com/aws-observability/aws-rum-web/commit/cb9cb1396a22b440ee7b62a0a02c30db54ff453f))
+* referrer ([#327](https://github.com/aws-observability/aws-rum-web/issues/327)) ([a414c92](https://github.com/aws-observability/aws-rum-web/commit/a414c9265b37f9eafe7ae6475fe71357beadbcfc))
+* Retry fetch requests and disable dispatch on failure. ([#174](https://github.com/aws-observability/aws-rum-web/issues/174)) ([587929c](https://github.com/aws-observability/aws-rum-web/commit/587929c2b801e3a01e2a79d78d1fc41bc0133722))
+* Use data plane endpoint path prefix. ([#156](https://github.com/aws-observability/aws-rum-web/issues/156)) ([3dd112f](https://github.com/aws-observability/aws-rum-web/commit/3dd112fe8bce2994147f7c1f11cc44978c632ad3))
+* webclient version and installation method ([#321](https://github.com/aws-observability/aws-rum-web/issues/321)) ([97c543a](https://github.com/aws-observability/aws-rum-web/commit/97c543a13d845bb4c2683c2b6b85ac97237fa410))
+
+
+### Bug Fixes
+
+* add Cache-Control max-age to CDN files ([#76](https://github.com/aws-observability/aws-rum-web/issues/76)) ([fad8fb9](https://github.com/aws-observability/aws-rum-web/commit/fad8fb9cc39fbd11b5e58501468b0a1971cc4279))
+* Add cause to Cognito and STS error messages ([#272](https://github.com/aws-observability/aws-rum-web/issues/272)) ([00563f5](https://github.com/aws-observability/aws-rum-web/commit/00563f50d1387846c0564130b8207e4c47af3257))
+* Add type to recordJsErrorEvent parameter ([#339](https://github.com/aws-observability/aws-rum-web/issues/339)) ([2ee6ffa](https://github.com/aws-observability/aws-rum-web/commit/2ee6ffa115f448e5f43b18b6af6f58750c35e544))
+* Add version property to http-event-schema ([#122](https://github.com/aws-observability/aws-rum-web/issues/122)) ([cf59ecb](https://github.com/aws-observability/aws-rum-web/commit/cf59ecb3e18e74e86eb5eccbcedcae8d20c1d83f))
+* capture PerformanceNavigationTiming events even when window.load fires before plugin loads ([#81](https://github.com/aws-observability/aws-rum-web/issues/81)) ([ece1306](https://github.com/aws-observability/aws-rum-web/commit/ece1306d82f51453d4009701eed4051d91708810))
+* change RUM origin from AWS::RUM::Application to AWS::RUM::AppMonitor ([#85](https://github.com/aws-observability/aws-rum-web/issues/85)) ([ead3b41](https://github.com/aws-observability/aws-rum-web/commit/ead3b410bc7421c83bcd963d370ade7cbfb39a4e))
+* documentation typos ([#80](https://github.com/aws-observability/aws-rum-web/issues/80)) ([5492091](https://github.com/aws-observability/aws-rum-web/commit/549209115ac27d999820d5b6ff0c25586eb98ef3))
+* Export types used in config object ([#154](https://github.com/aws-observability/aws-rum-web/issues/154)) ([9d4238b](https://github.com/aws-observability/aws-rum-web/commit/9d4238bc03a309e2dcacc997393b15d9cfe2752e))
+* find the first script tag in head instead of the entire document ([#72](https://github.com/aws-observability/aws-rum-web/issues/72)) ([dc86ec6](https://github.com/aws-observability/aws-rum-web/commit/dc86ec609c5dadb975508faab0ce721147dca7e3))
+* Fix hyperlink to MetadataAttributes section ([#270](https://github.com/aws-observability/aws-rum-web/issues/270)) ([a6e4388](https://github.com/aws-observability/aws-rum-web/commit/a6e43881b29a1c5e565c7390214791ad7416d6ea))
+* Fix MonkeyPatch type arg. ([#222](https://github.com/aws-observability/aws-rum-web/issues/222)) ([3218294](https://github.com/aws-observability/aws-rum-web/commit/3218294f4e1bae98cfcaa44c39370407699e047c))
+* Fix route change timing fetch counter decrement ([#145](https://github.com/aws-observability/aws-rum-web/issues/145)) ([c4414d9](https://github.com/aws-observability/aws-rum-web/commit/c4414d9f9e97661b59414433864cf2fbfc602874))
+* Handle missing pageId in metadata when page is resumed ([#388](https://github.com/aws-observability/aws-rum-web/issues/388)) ([49678a6](https://github.com/aws-observability/aws-rum-web/commit/49678a6812cca9af3105a10b693e413d4b7da166))
+* Hardcode webclient version ([#381](https://github.com/aws-observability/aws-rum-web/issues/381)) ([#384](https://github.com/aws-observability/aws-rum-web/issues/384)) ([2576f91](https://github.com/aws-observability/aws-rum-web/commit/2576f91a263a9a1d95ccb34db48809d09d42526d))
+* Make dynamic DOM event handlers configurable ([#129](https://github.com/aws-observability/aws-rum-web/issues/129)) ([49eecfc](https://github.com/aws-observability/aws-rum-web/commit/49eecfc40879913260c6d91781c392fbe5921dcc))
+* Only ignore PutRumEvents requests on proxy endpoints. ([#266](https://github.com/aws-observability/aws-rum-web/issues/266)) ([74e6436](https://github.com/aws-observability/aws-rum-web/commit/74e64368471e5272b8635e5474d6bff20b220adb))
+* Parse unhandledrejection error objects ([#123](https://github.com/aws-observability/aws-rum-web/issues/123)) ([f69c859](https://github.com/aws-observability/aws-rum-web/commit/f69c85919b8cc7f0f33418dc20455df4e4f42f9b))
+* Point to correct license files in bundle banner. ([#91](https://github.com/aws-observability/aws-rum-web/issues/91)) ([1082f23](https://github.com/aws-observability/aws-rum-web/commit/1082f2308ca7cb3b4bf99c00ce6bf60d56a52b1c))
+* Populate http method from RequestInfo ([#280](https://github.com/aws-observability/aws-rum-web/issues/280)) ([eb96760](https://github.com/aws-observability/aws-rum-web/commit/eb967602080144094f0b206a3afb48d889480504))
+* Remove duplicate PageIdFormat type in orchestration ([#162](https://github.com/aws-observability/aws-rum-web/issues/162)) ([6cec9da](https://github.com/aws-observability/aws-rum-web/commit/6cec9da3b6308bcec4f6e2adc613824401549625))
+* Remove trailing slash in dataplane-integ.spec.ts ([#279](https://github.com/aws-observability/aws-rum-web/issues/279)) ([d72e686](https://github.com/aws-observability/aws-rum-web/commit/d72e6861add59c6b61c25c0488091f96c298690c))
+* Remove trailing slash in TARGET_URL ([#278](https://github.com/aws-observability/aws-rum-web/issues/278)) ([2efe362](https://github.com/aws-observability/aws-rum-web/commit/2efe36242f53bbe0d3ea03ea3a394691430ad3db))
+* Set appropriate error codes in X-Ray segments ([#192](https://github.com/aws-observability/aws-rum-web/issues/192)) ([cc5bb43](https://github.com/aws-observability/aws-rum-web/commit/cc5bb43f974d952af77f8132a1d97c772d319f9c))
+* Set aws api call xray subsegment namespace to aws ([#90](https://github.com/aws-observability/aws-rum-web/issues/90)) ([36d4e3c](https://github.com/aws-observability/aws-rum-web/commit/36d4e3c822df113c310af4d1c03301c484182651))
+* Set x-amzn-trace-id header directly in request headers ([#93](https://github.com/aws-observability/aws-rum-web/issues/93)) ([706d93e](https://github.com/aws-observability/aws-rum-web/commit/706d93e84bd4ef1feb3e728d42c98be8cec10348))
+* Transpile [@aws-sdk](https://github.com/aws-sdk) to ES5. ([#363](https://github.com/aws-observability/aws-rum-web/issues/363)) ([d6c9752](https://github.com/aws-observability/aws-rum-web/commit/d6c9752bbbf3e76941949cc8b19ba0937378c18e))
+* Uncaught TypeError: Cannot read the properties of undefined (reading 'record') ([#75](https://github.com/aws-observability/aws-rum-web/issues/75)) ([0193480](https://github.com/aws-observability/aws-rum-web/commit/019348075d0c0aadf618f18eb89e09d827351bd5))
+* Update entry point in package.json ([#377](https://github.com/aws-observability/aws-rum-web/issues/377)) ([#379](https://github.com/aws-observability/aws-rum-web/issues/379)) ([5d87e46](https://github.com/aws-observability/aws-rum-web/commit/5d87e46bc7452398f6288e4d1880059c77e35f92))
+* Update version during release workflow only ([#359](https://github.com/aws-observability/aws-rum-web/issues/359)) ([4d3b2cd](https://github.com/aws-observability/aws-rum-web/commit/4d3b2cd4bc7a933dd8ecc145652072c2fe57ed74))
+* Use PerformanceObserver to act as a second check to prevent returning 0 for duration and loadEventEnd ([#101](https://github.com/aws-observability/aws-rum-web/issues/101)) ([cea2c0b](https://github.com/aws-observability/aws-rum-web/commit/cea2c0bdcccdf765c26419c129a858955bde68ee))
+
 ### [1.13.4](https://github.com/aws-observability/aws-rum-web/compare/v1.13.2...v1.13.4) (2023-03-07)
 
 
