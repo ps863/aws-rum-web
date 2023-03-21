@@ -21,7 +21,9 @@ jobs:
           echo "2"
           ls
           pwd
+          
       - run: |
           echo "🍏 This job's status is ${{ job.status }}."
-          pwd
-          pwd 
+          npm run release 
+        
+
