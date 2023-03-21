@@ -13,10 +13,11 @@ jobs:
         with:
             node-version: '16.x'
             registry-url: 'https://registry.npmjs.org'
+      - name: install
+        run: npm install
 
       - name: List files in the repository
         run: |
-         npm i npm-run-all -D
          echo "1"
           ls ${{ github.workspace }}
           pwd 
@@ -26,7 +27,6 @@ jobs:
           pwd
           
       - run: |
-          echo "🍏 This job's status is ${{ job.status }}."
           npm run release 
         
 
