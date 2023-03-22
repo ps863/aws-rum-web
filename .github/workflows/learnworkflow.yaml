@@ -18,8 +18,7 @@ jobs:
       - name: List files in the repository
         run: |
           pwd
-          echo npm pkg get version
           chmod u+x .github/scripts/new.sh
-          .github/scripts/new.sh 
+          .github/scripts/new.sh `npm pkg get version`
         
 
