@@ -16,6 +16,8 @@ jobs:
 
 
       - name: List files in the repository
+        env: 
+          VERSION: $npm_package_version
         run: |
          echo "1"
           ls ${{ github.workspace }}
@@ -27,6 +29,6 @@ jobs:
           
       - run: |
           chmod u+x .github/scripts/new.sh
-          .github/scripts/new.sh "hello123"
+          .github/scripts/new.sh $VERSION
         
 
