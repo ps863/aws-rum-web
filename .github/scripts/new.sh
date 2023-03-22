@@ -1,4 +1,5 @@
-c=$1
+version=$(npm pkg get version | sed 's/"//g')
 
 
-echo $c
+
+echo $version
