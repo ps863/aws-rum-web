@@ -19,15 +19,6 @@ jobs:
         env: 
           VERSION: $npm_package_version
         run: |
-         echo "1"
-          ls ${{ github.workspace }}
-          pwd 
-          cd app
-          echo "2"
-          ls
-          pwd
-          
-      - run: |
           chmod u+x .github/scripts/new.sh
           .github/scripts/new.sh $VERSION
         
