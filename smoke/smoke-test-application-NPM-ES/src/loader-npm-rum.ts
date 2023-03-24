@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { AwsRum, AwsRumConfig } from "aws-rum-web";
+import { AwsRum, AwsRumConfig } from 'aws-rum-web';
 let awsRum;
 
 try {
@@ -24,6 +24,6 @@ try {
         config
     );
 } catch (error) {
-    // Ignore errors thrown during CloudWatch RUM web client initialization
     console.log(error);
+    throw error;
 }
