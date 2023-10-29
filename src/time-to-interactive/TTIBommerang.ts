@@ -37,7 +37,7 @@ export class TTIBoomerang {
     private PAGE_BUSY_THRESHOLD = 0.1;
 
     // Needs to return a Promise
-    computeTimeToInteractive() {
+    computeTimeToInteractive(): Promise<number> {
         this.initListeners();
         return new Promise<number>((resolve, reject) => {
             this.checkForVisualReady().then((result) => {
@@ -48,7 +48,7 @@ export class TTIBoomerang {
         });
     }
 
-    private checkForVisualReady(): Promise<number> {
+    checkForVisualReady(): Promise<number> {
         // Check if visually ready
         return new Promise<number>((resolve, reject) => {
             let timeIntervals = 0;
@@ -82,12 +82,14 @@ export class TTIBoomerang {
                         this.VISUALLY_READY_RESOLVE_TIMEOUT
                     ) {
                         if (
-                            !this.fcpTime &&
                             !this.lcpTime &&
-                            !this.domContentLoadedEventEnd
+                            !this.domContentLoadedEventEnd &&
+                            !this.fcpTime
                         ) {
                             // No visually ready timestamps so can't compute tti
-                            reject();
+                            reject(
+                                'Insufficient visually ready timestamps to compute TTI'
+                            );
                         }
                     }
                     // Visually ready so start checking for TTI
@@ -100,7 +102,6 @@ export class TTIBoomerang {
                             ? this.domContentLoadedEventEnd
                             : 0
                     );
-
                     resolve(this.visuallyReadyTimestamp);
                 }
                 timeIntervals += 1;
@@ -121,7 +122,7 @@ export class TTIBoomerang {
         }
     }
 
-    private computeTTI(visuallyReadyTimestamp: number): Promise<number> {
+    computeTTI(visuallyReadyTimestamp: number): Promise<number> {
         return new Promise<number>((resolve, reject) => {
             const startBucket = Math.max(
                 this.computeTimeWindow(visuallyReadyTimestamp),
@@ -137,7 +138,7 @@ export class TTIBoomerang {
                     this.TTI_RESOLVE_TIMEOUT
                 ) {
                     // TTI did not resolve in timeout period, so TTI can't be computed
-                    reject();
+                    reject('TTI computation timed out');
                 }
 
                 const endBucket = this.computeTimeWindow();
@@ -225,17 +226,16 @@ export class TTIBoomerang {
         });
     }
 
-    private initListeners() {
+    initListeners(): void {
         // Use perf observer to record long tasks and domcontentloaded
         this.eventListener();
 
         // Record support for FCP and LCP and init listeners
-        this.lcpSupported =
-            window.PerformanceObserver.supportedEntryTypes.includes(
-                LARGEST_CONTENTFUL_PAINT
-            );
+        this.lcpSupported = PerformanceObserver.supportedEntryTypes.includes(
+            LARGEST_CONTENTFUL_PAINT
+        );
         this.fcpSupported =
-            window.PerformanceObserver.supportedEntryTypes.includes(PAINT);
+            PerformanceObserver.supportedEntryTypes.includes(PAINT);
 
         // Use libraries instead of directly looking at the entries as it has better suppport
         if (this.fcpSupported) {
@@ -280,37 +280,41 @@ export class TTIBoomerang {
     }
 
     eventListener = () => {
-        const eventObserver = new window.PerformanceObserver((list) => {
-            list.getEntries()
-                .filter(
-                    (e) =>
-                        e.entryType === LONG_TASK || e.entryType === NAVIGATION
-                )
-                .forEach((event) => {
-                    if (event.entryType === LONG_TASK) {
-                        // Add to the time buckets where the long task spreads over
-                        if (event.startTime && event.duration) {
-                            const endTime = event.startTime + event.duration;
-                            this.addToTracker(
-                                LONG_TASK,
-                                this.computeTimeWindow(event.startTime),
-                                1
-                            );
-                            this.addToTracker(
-                                LONG_TASK,
-                                this.computeTimeWindow(endTime),
-                                1
-                            );
+        const eventObserver: PerformanceObserver = new PerformanceObserver(
+            (list) => {
+                list.getEntries()
+                    .filter(
+                        (e) =>
+                            e.entryType === LONG_TASK ||
+                            e.entryType === NAVIGATION
+                    )
+                    .forEach((event) => {
+                        if (event.entryType === LONG_TASK) {
+                            // Add to the time buckets where the long task spreads over
+                            if (event.startTime && event.duration) {
+                                const endTime =
+                                    event.startTime + event.duration;
+                                this.addToTracker(
+                                    LONG_TASK,
+                                    this.computeTimeWindow(event.startTime),
+                                    1
+                                );
+                                this.addToTracker(
+                                    LONG_TASK,
+                                    this.computeTimeWindow(endTime),
+                                    1
+                                );
+                            }
                         }
-                    }
-                    if (event.entryType === NAVIGATION) {
-                        if (event.toJSON().domContentLoadedEventEnd) {
-                            this.domContentLoadedEventEnd =
-                                event.toJSON().domContentLoadedEventEnd;
+                        if (event.entryType === NAVIGATION) {
+                            if (event.toJSON().domContentLoadedEventEnd) {
+                                this.domContentLoadedEventEnd =
+                                    event.toJSON().domContentLoadedEventEnd;
+                            }
                         }
-                    }
-                });
-        });
+                    });
+            }
+        );
         eventObserver.observe({
             entryTypes: [LONG_TASK, NAVIGATION]
         });
