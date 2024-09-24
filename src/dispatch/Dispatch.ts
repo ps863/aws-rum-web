@@ -224,7 +224,7 @@ export class Dispatch {
     }
 
     private createRequest(): PutRumEventsRequest {
-        if (this.config.alias !== undefined) {
+        if (this.config.alias) {
             return {
                 BatchId: v4(),
                 AppMonitorDetails: this.eventCache.getAppMonitorDetails(),
