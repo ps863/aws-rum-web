@@ -115,6 +115,7 @@ export class DataPlaneClient {
         const options = {
             method: METHOD,
             protocol: this.config.endpoint.protocol,
+            port: Number(this.config.endpoint.port) || undefined,
             headers: {
                 'content-type': contentType,
                 host: this.config.endpoint.host
